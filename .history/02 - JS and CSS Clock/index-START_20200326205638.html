@@ -59,8 +59,7 @@
     #second-hand {
       width: 50%;
       height: 4px;
-      background: white;
-      border-radius: 40%;
+      background: black;
       position: absolute;
       top: 50%;
       transform-origin: 100%;
@@ -72,8 +71,7 @@
     #min-hand {
       width: 50%;
       height: 6px;
-      background: white;
-      border-radius: 40%;
+      background: black;
       position: absolute;
       top: 50%;
       transform-origin: 100%;
@@ -83,13 +81,11 @@
     }
 
     #hour-hand {
-      width: 40%;
-      height: 10px;
-      background: white;
-      border-radius: 40%;
+      width: 50%;
+      height: 8px;
+      background: black;
       position: absolute;
-      top: 49%;
-      left: 10%;
+      top: 50%;
       transform-origin: 100%;
       transform: rotate(90deg);
       transition: all 0.05s;
@@ -121,9 +117,6 @@
 
       const hour = now.getHours();
       const hoursDegrees = (((hour / 12) * 360) + 90);
-      if (hoursDegrees === 450) {
-        hourHand.style.transition = none;
-      }
       hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
     }
 

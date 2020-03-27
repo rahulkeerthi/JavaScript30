@@ -23,7 +23,7 @@
   <style>
     :root {
       --base: red;
-      --spacing: 10px;
+      --spacing: 15px;
       --blur: 3px;
     }
 
@@ -31,10 +31,9 @@
       padding: var(--spacing);
       background: var(--base);
       filter: blur(var(--blur));
-      width: 95vw;
     }
 
-    .hl {
+    .h1 {
       color: var(--base);
     }
     /*
@@ -62,21 +61,14 @@
   <script>
     const inputs = document.querySelectorAll('.controls input');
 
-    // if I were defining handleUpdate as a function, I could use "this" to reference the control inputs and this would be scoped to the function
     // function handleUpdate() {
       //   console.log(this.value);
       // }
+      const handleUpdate(input) = (input) => console.log(this.value);
       
     inputs.forEach((input) => {
-      // since const function is block scoped, I've used it within the forEach loop referencing the input rather than this 
-      const handleUpdate = () => { 
-        const suffix = input.dataset.sizing || '';
-        const image = document.querySelector('img');
-        document.documentElement.style.setProperty(`--${input.name}`, input.value + suffix)
-        image.style.setProperty(`width`, `calc(96.5vw - ${(2 * input.value) + suffix})`);
-      };
-      input.addEventListener('change', handleUpdate);
-      input.addEventListener('mousemove', handleUpdate)
+      input.addEventListener('change', handleUpdate(input));
+      input.addEventListener('mousemove', handleUpdate(input))
     }); 
   </script>
 

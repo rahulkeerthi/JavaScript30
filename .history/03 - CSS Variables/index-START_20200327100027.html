@@ -23,7 +23,7 @@
   <style>
     :root {
       --base: red;
-      --spacing: 10px;
+      --spacing: 15px;
       --blur: 3px;
     }
 
@@ -31,7 +31,6 @@
       padding: var(--spacing);
       background: var(--base);
       filter: blur(var(--blur));
-      width: 95vw;
     }
 
     .hl {
@@ -73,7 +72,7 @@
         const suffix = input.dataset.sizing || '';
         const image = document.querySelector('img');
         document.documentElement.style.setProperty(`--${input.name}`, input.value + suffix)
-        image.style.setProperty(`width`, `calc(96.5vw - ${(2 * input.value) + suffix})`);
+        image.style.setProperty(`width`, `calc("100vw - ${input.value + suffix})`);
       };
       input.addEventListener('change', handleUpdate);
       input.addEventListener('mousemove', handleUpdate)

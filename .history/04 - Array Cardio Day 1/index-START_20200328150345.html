@@ -69,10 +69,12 @@
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
     const groupedData = data.reduce((obj, item) => {
-      !obj[item] ? obj[item] = 1 : obj[item]++;
+      (!obj[item]) ? obj[item] = 0 :
+      obj[item]++;
       return obj;
     }, { });
     console.log(groupedData);
+
   </script>
 </body>
 </html>

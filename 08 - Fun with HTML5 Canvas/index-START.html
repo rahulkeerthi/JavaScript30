@@ -6,7 +6,64 @@
 </head>
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
+<button id="clear" style="position: absolute; top: 5%; left: 5%">Clear</button>
 <script>
+  const canvas = document.querySelector('#draw');
+  const ctx = canvas.getContext('2d');
+  const clear = document.querySelector('#clear');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.strokeStyle = '#033AE5';
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.lineWidth = 1;
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let hue = 0;
+  // let direction = true;
+  let timer = 0;
+
+  const draw = (e) => {
+    if (!isDrawing) return;
+    // console.log(e);
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+    hue++;
+    setInterval(ctx.lineWidth++, 1000); 
+    console.log(`${ctx.lineWidth} - ${timer}`);
+    if (ctx.lineWidth >= 20) {
+      ctx.lineWidth = 20;
+    }
+    // if (ctx.lineWidth >= 20 || ctx.lineWidth <= 1) {
+    //   direction = !direction;
+    // }
+    // direction ? ctx.lineWidth++ : ctx.lineWidth--;
+  }
+
+  const clearCanvas = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mousedown', (e) => {
+    isDrawing = true;
+    ctx.lineWidth = 1;
+    // ctx.lineWidth = ctx.lineWidth + timer;   
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+  });
+  canvas.addEventListener('mouseup', () => {
+    timer = 0;
+    isDrawing = false;
+    ctx.lineWidth = 1;
+  });
+  canvas.addEventListener('mouseout', () => isDrawing = false);
+  clear.addEventListener('click', clearCanvas);
+
 </script>
 
 <style>

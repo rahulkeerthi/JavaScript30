@@ -100,7 +100,7 @@
       const itemsArray = Array.from(document.querySelectorAll('.item'));
       const inputs = document.querySelectorAll('.item>input');
       let firstSelectedItem = null;
-      let shiftSelectedItem = null;
+      let lastSelectedItem = null;
       
       inputs.forEach((input) => input.addEventListener("change", (e) => {
         firstSelectedItem = e.target.parentElement;
@@ -108,14 +108,14 @@
       
       window.addEventListener('click', (e) => {
         if (e.shiftKey && e.target.tagName === "INPUT") {
-          shiftSelectedItem = e.target.parentElement;
+          lastSelectedItem = e.target.parentElement;
           const firstIndex = itemsArray.findIndex((item) => item === firstSelectedItem);
-          const shiftIndex = itemsArray.findIndex((item) => item === shiftSelectedItem);
+          const shiftIndex = itemsArray.findIndex((item) => item === lastSelectedItem);
           if (firstIndex > shiftIndex) {            
             for (index = firstIndex; index > shiftIndex; index--) {
               itemsArray[index - 1].firstElementChild.checked = true;
             }
-          } else if (firstIndex < shiftIndex) {
+          } else {
             for (index = shiftIndex; index > firstIndex; index--) {
               itemsArray[index - 1].firstElementChild.checked = true;
             }

@@ -54,7 +54,24 @@
   </div>
 
 <script>
+  const logo = document.querySelector('.logo');
+  const navbar = document.querySelector('#main');
+  const links = document.querySelectorAll('nav a');
+  const showLogo = () => {
+    const navbarDimensions = navbar.getBoundingClientRect();
+    if (navbarDimensions.y === 0) {
+      logo.style.maxWidth = "100%"
+      navbar.style.boxShadow = "1px 1px 3px black"
+      links.forEach(link => { link.style.textShadow = "1px 1px 2px grey" })
+    } else {
+      logo.style.maxWidth = ""
+      navbar.style.boxShadow = ""
+      links.forEach(link => { link.style.textShadow = "" })
+    }
 
+  } 
+  window.addEventListener('scroll', showLogo)
+  
 </script>
 
 </body>

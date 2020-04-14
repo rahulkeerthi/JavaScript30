@@ -1,20 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Video Speed Scrubber</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-  <div class="wrapper">
-    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop controls></video>
-    <div class="speed">
-      <div class="speed-bar">1×</div>
+  <head>
+    <meta charset="UTF-8">
+    <title>Video Speed Scrubber</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+    <div class="wrapper">
+      <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop
+        controls></video>
+      <div class="speed">
+        <div class="speed-bar">1×</div>
+      </div>
     </div>
-  </div>
 
-<script>
-</script>
-</body>
+    <script>
+      const speed = document.querySelector('.speed');
+      const bar = document.querySelector('.speed-bar');
+      const video = document.querySelector('.flex');
+      let isDown = false;
+      const speedHeight = parseInt(window.getComputedStyle(speed).height, 10);
+      const maxSpeed = 4
+
+      speed.addEventListener('mousedown', (e) => {
+        isDown = true;
+        e.preventDefault();
+      })
+
+      speed.addEventListener('mouseleave', () => {
+        isDown = false;
+      })
+
+      speed.addEventListener('mouseup', () => {
+        isDown = false;
+      })
+
+      speed.addEventListener('mousemove', (e) => {
+        if (isDown) {
+          newHeight = Math.min(e.offsetY, speedHeight)
+          bar.style.height = `${newHeight}px`
+          rateToSet = ((newHeight / speedHeight) * maxSpeed).toFixed(1)
+          bar.innerText = rateToSet + "×"
+          video.playbackRate = rateToSet;
+        }
+      })
+
+      speed.addEventListener('click', (e) => {
+        newHeight = e.offsetY
+        bar.style.height = `${newHeight}px`
+        rateToSet = ((newHeight / speedHeight) * maxSpeed).toFixed(1)
+        console.log(rateToSet)
+        bar.innerText = rateToSet + "×"
+        video.playbackRate = rateToSet;
+      })
+
+
+    </script>
+  </body>
+
 </html>
